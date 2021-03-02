@@ -3,6 +3,9 @@ import * as React from "react";
 import {
   Wrapper as ExtensionWrapper,
   useUiExtension,
+  ExtensionDeclaration,
+  FieldExtensionType,
+  FieldExtensionFeature,
 } from "@graphcms/uix-react-sdk";
 
 import enTranslations from "@shopify/polaris/locales/en.json";
@@ -16,6 +19,25 @@ import {
   Thumbnail,
   DisplayText,
 } from "@shopify/polaris";
+
+const ExtensionDeclaration: ExtensionDeclaration = {
+  extensionType: "field",
+  name: "Shopify Product Picker",
+  fieldType: FieldExtensionType.STRING,
+  features: [FieldExtensionFeature.FieldRenderer],
+  config: {
+    STORE: {
+      type: "string",
+      displayName: "Store ID",
+      required: true,
+    },
+    ACCESS_TOKEN: {
+      type: "string",
+      displayName: "Access Token",
+      required: true,
+    },
+  },
+};
 
 export default function ShopifyExtension({ extensionUid }) {
   return (

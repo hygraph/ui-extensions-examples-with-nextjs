@@ -46,10 +46,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@graphcms/uix-react-sdk@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@graphcms/uix-react-sdk/-/uix-react-sdk-0.0.6.tgz#209d03ad7196a0cf149e87e3f1422f53d76fc275"
-  integrity sha512-NFQCNeJanxWeAizrus+9IMXknQvlR02NRymxc4m8lowqQpeXkipuqqc/7v89tKZkJov2M8XQbaaduQQxeLim0w==
+"@graphcms/uix-react-sdk@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@graphcms/uix-react-sdk/-/uix-react-sdk-0.0.8.tgz#e7bddfba8310713a9c7c269cfa553637ca737e7d"
+  integrity sha512-gGVKJyfbkZEvWOZNMfKtmnnwAGEKu6Rg4c00MECb1hMRHFyoD5eZMkaVpOYLWXQau4EjbPdhQX/b/0icFVP8JA==
   dependencies:
     "@graphcms/zoid" "^9.0.64-alpha.1"
 
