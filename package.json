@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@graphcms/uix-react-sdk": "^0.0.5",
+    "@graphcms/uix-react-sdk": "^0.0.6",
     "@graphcms/zoid": "^9.0.64-alpha.1",
     "@shopify/polaris": "^6.0.1",
     "next": "10.0.7",
