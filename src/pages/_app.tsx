@@ -1,5 +1,4 @@
-import type { AppProps } from 'next/app';
-import '@shopify/polaris/dist/styles.css';
+import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const {

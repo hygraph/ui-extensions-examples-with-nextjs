@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import "@shopify/polaris/dist/styles.css";
 import {
   Wrapper as ExtensionWrapper,
   useUiExtension,
@@ -20,7 +21,7 @@ import {
   DisplayText,
 } from "@shopify/polaris";
 
-const ExtensionDeclaration: ExtensionDeclaration = {
+const extensionDeclaration: ExtensionDeclaration = {
   extensionType: "field",
   name: "Shopify Product Picker",
   fieldType: FieldExtensionType.STRING,
@@ -40,12 +41,10 @@ const ExtensionDeclaration: ExtensionDeclaration = {
 };
 
 export default function ShopifyExtension({ extensionUid }) {
+  console.log({ extensionUid });
+  if (typeof extensionUid !== "string") return <p> missing extiension UID</p>;
   return (
-    <ExtensionWrapper
-      uid={extensionUid}
-      // @ts-ignore
-      declaration={{}}
-    >
+    <ExtensionWrapper uid={extensionUid} declaration={extensionDeclaration}>
       <ShopifyProductInput />
     </ExtensionWrapper>
   );
