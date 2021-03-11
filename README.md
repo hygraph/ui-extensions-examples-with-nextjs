@@ -9,7 +9,7 @@ This app is displayed in an iframe and communicates with the content editor usin
 
 An extension is "just a webapp":
 
-- you can use any language and framework to build it (eventually, as the current version of the sdk is for React only)
+- you can use any language and framework to build it (eventually, as the current SDK version is for React)
 - host it on your own domain
 - build flows requiring server-side treatment, like authenticating with another 3rd party platform
 - etc..
@@ -23,7 +23,7 @@ import { useState } from "react";
 import ReactDOM from "react-dom";
 
 const MyField = () => {
-  const [value, onChange] = useState(); // we want to connect this to graphcms later
+  const [value, onChange] = useState(); // we want to sync this with GraphCMS later
 
   return <MyComplexInputComponent value={value} onChange={onChange} />;
 };
@@ -44,7 +44,7 @@ import type {
 } from "@grapcms/uix-react-sdk";
 
 const Extension = () => {
-  // When displaying the extensions, graphcms will add a unique identifier 'extensionUid' to the url
+  // When displaying the extensions, GraphCMS will add a unique identifier 'extensionUid' to the url
   const queryParams = new URLSearchParams(window.location.query);
   const uid = queryParams.get("extensionUid");
 
@@ -73,7 +73,7 @@ ReactDOM.renderToString(<MyField />, "#app");
 
 And that's it !
 
-## Adding the extension to graphcms:
+## Adding the extension to GraphCMS:
 
 /!\ this is a feature preview that needs to be activated on your project beforehand
 
@@ -109,16 +109,15 @@ export interface ExtensionType {
   value: any;
   onChange: (value: any) => void;
 
-  // fullscreen display
+  // fullscreen mode
   isExpanded?: boolean;
   expandField?: (expand: boolean) => unknown;
 
   // access to the form stage and other form fields
   form?: {
     change: <Value = any>(name: string, value: Value) => Promise<void>;
-    getState: <Values = Record<string, any>>() => Promise<FormState<Values>>;
-    getFieldState: <Value = any>() => Promise<FieldState<Value>>;
-  };
+    getState: <Values = Record<string, any>>() => Promise<FormState<Values>>; // see https://final-form.org/docs/final-form/types/FormState
+    getFieldState: <Value = any>() => Promise<FieldState<Value>>; // see https://final-form.org/docs/final-form/types/FieldState
 
   // details about the field you are currently extending
   field?: {
