@@ -100,3 +100,73 @@ Params:
 }
 
 ```
+
+## Type definition for useUiExtension:
+
+```ts
+export interface ExtensionType {
+  // field state sync
+  value: any;
+  onChange: (value: any) => void;
+
+  // fullscreen display
+  isExpanded?: boolean;
+  expandField?: (expand: boolean) => unknown;
+
+  // access to the form stage and other form fields
+  form?: {
+    change: <Value = any>(name: string, value: Value) => Promise<void>;
+    getState: <Values = Record<string, any>>() => Promise<FormState<Values>>;
+    getFieldState: <Value = any>() => Promise<FieldState<Value>>;
+  };
+
+  // details about the field you are currently extending
+  field?: {
+    id: string;
+    apiId: string;
+    description: string | null;
+    displayName: string;
+    isList: boolean;
+    isLocalized?: boolean;
+    isRequired?: boolean;
+    isUnique?: boolean;
+    isPreview: boolean;
+    type: FieldExtensionType;
+    model: {
+      apiId: string;
+      apiIdPlural: string;
+      id: string;
+      description: string | null;
+      displayName: string;
+      isLocalized: boolean;
+    };
+  };
+
+  // information needed to be able to use the project api's
+  context?: {
+    project: {
+      id: string;
+      name: string;
+
+      // management api access
+      mgmtApi: string;
+      mgmtToken: string;
+    };
+    environment: {
+      id: string;
+      name: string;
+
+      // content api access
+      endpoint: string;
+      authToken: string;
+    };
+  };
+
+  // extension status
+  extension: {
+    onReady: () => void;
+    config: Record<string, any>;
+    status: "connected" | "connecting" | "error" | "disconnected";
+  };
+}
+```
