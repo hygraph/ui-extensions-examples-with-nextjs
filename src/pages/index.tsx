@@ -17,6 +17,11 @@ export default function Home() {
               <a>Shopify product input</a>
             </Link>
           </li>
+          <li>
+            <Link href="/extensions/markdown">
+              <a>Custom markdown with fullscreen mode and mdx preview</a>
+            </Link>
+          </li>
         </ul>
       </main>
     </div>
