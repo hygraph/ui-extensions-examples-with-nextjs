@@ -42,7 +42,7 @@ const extensionDeclaration: ExtensionDeclaration = {
 
 export default function ShopifyExtension({ extensionUid }) {
   console.log({ extensionUid });
-  if (typeof extensionUid !== "string") return <p> missing extiension UID</p>;
+  if (typeof extensionUid !== "string") return <p> missing extension UID</p>;
   return (
     <ExtensionWrapper uid={extensionUid} declaration={extensionDeclaration}>
       <ShopifyProductInput />
