@@ -1,30 +1,102 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# UI Extension examples
 
-## Getting Started
+/!\ this is a feature preview that needs to be activated on your project beforehand
 
-First, run the development server:
+## About extensions
 
-```bash
-npm run dev
-# or
-yarn dev
+UI extensions allow you to replace components in the content editor by your own self-hosted app.
+This app is displayed in an iframe and communicates with the content editor using a javascript SDK.
+
+An extension is "just a webapp":
+
+- you can use any language and framework to build it (eventually, as the current version of the sdk is for React only)
+- host it on your own domain
+- build flows requiring server-side treatment, like authenticating with another 3rd party platform
+- etc..
+
+## Quick example: extending a form field (in React)
+
+### Build your own field and render it on a page:
+
+```jsx
+import { useState } from "react";
+import ReactDOM from "react-dom";
+
+const MyField = () => {
+  const [value, onChange] = useState(); // we want to connect this to graphcms later
+
+  return <MyComplexInputComponent value={value} onChange={onChange} />;
+};
+
+ReactDOM.renderToString(<MyField />, "#app");
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Integrate the UI extensions SDK
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```jsx
+import { useState } from "react";
+import ReactDOM from "react-dom";
 
-## Learn More
+import { Wrapper, useUiExtension } from "@grapcms/uix-react-sdk";
+import type {
+  ExtensionDeclaration,
+  FieldExtensionType,
+} from "@grapcms/uix-react-sdk";
 
-To learn more about Next.js, take a look at the following resources:
+const Extension = () => {
+  // When displaying the extensions, graphcms will add a unique identifier 'extensionUid' to the url
+  const queryParams = new URLSearchParams(window.location.query);
+  const uid = queryParams.get("extensionUid");
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  // We need a quick declaration of what this extension is about
+  const declaration = {
+    extensionType: "field", // we extend a form field
+    fieldType: FieldExtensionType.STRING, // that handles string values
+    name: "My own super field",
+  };
+  return (
+    <Wrapper uid={uid} declaration={declaration}>
+      <MyField />
+    </Wrapper>
+  );
+};
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+const MyField = () => {
+  // const [value, onChange] = useState();
+  const { value, onChange } = useUiExtension(); // and we use the sdk hook to connect state
 
-## Deploy on Vercel
+  return <MyComplexInputComponent value={value} onChange={onChange} />;
+};
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ReactDOM.renderToString(<MyField />, "#app");
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+And that's it !
+
+## Adding the extension to graphcms:
+
+/!\ this is a feature preview that needs to be activated on your project beforehand
+
+### Register it in your app settings
+
+### Update the renderer of one of your fields:
+
+In the api playground, select the management api.
+
+```graphql
+
+mutation useExtensions($fieldId: ID!, $rendererConfig: JSON!) {
+  updateSimpleField(data: {id: $fieldId, formConfig: {renderer: "CUSTOM", config: $rendererConfig}}){
+    migration {
+      id
+    }
+  }
+}
+
+Params:
+{
+  "fieldId": "qwertyuiop1234567890", // the ID of the field you want to replace
+  "rendererConfig": { "extensionId": "poiuytrewq0987654321" } // the ID of the UI extension you just registered
+}
+
+```

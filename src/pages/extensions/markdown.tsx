@@ -21,7 +21,7 @@ const declaration: ExtensionDeclaration = {
 export default function ExtensionPage({ extensionUid }) {
   if (typeof extensionUid !== "string") return <p>missing extension uid</p>;
   return (
-    <Wrapper uid={extensionUid} debug declaration={declaration}>
+    <Wrapper uid={extensionUid} declaration={declaration}>
       <MarkDownExtension />
     </Wrapper>
   );
@@ -37,6 +37,7 @@ function MarkDownExtension() {
     isExpanded,
     expandField,
     extension: { status },
+    form: { getFieldState, getState, change },
   } = useUiExtension();
 
   return (
@@ -49,6 +50,13 @@ function MarkDownExtension() {
       <div style={{ padding: "16px", borderBottom: "1px solid grey" }}>
         <button onClick={() => expandField(!isExpanded)}>
           {isExpanded ? "Reduce" : "Expand"}{" "}
+        </button>
+        <button
+          onClick={() =>
+            getState().then((state) => console.log({ formState: state }))
+          }
+        >
+          Log form state
         </button>
       </div>
       <div
