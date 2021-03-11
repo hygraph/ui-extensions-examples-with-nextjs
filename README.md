@@ -118,7 +118,7 @@ export interface ExtensionType {
   isExpanded?: boolean;
   expandField?: (expand: boolean) => unknown;
 
-  // access to the form stage and other form fields
+  // access to the form state and other form fields
   form?: {
     change: <Value = any>(name: string, value: Value) => Promise<void>;
     getState: <Values = Record<string, any>>() => Promise<FormState<Values>>; // see https://final-form.org/docs/final-form/types/FormState
@@ -134,7 +134,7 @@ export interface ExtensionType {
     isLocalized?: boolean;
     isRequired?: boolean;
     isUnique?: boolean;
-    isPreview: boolean;
+    isPreview: boolean; // true when in version or stage comparison view
     type: FieldExtensionType;
     model: {
       apiId: string;
