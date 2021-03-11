@@ -105,6 +105,11 @@ Params:
 
 ```ts
 export interface ExtensionType {
+  // name of the field in the form (may differ from field apiId)
+  name: string;
+  // current locale on localized field
+  locale?: string;
+
   // field state sync
   value: any;
   onChange: (value: any) => void;
