@@ -285,10 +285,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@graphcms/uix-react-sdk@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@graphcms/uix-react-sdk/-/uix-react-sdk-0.0.8.tgz#e7bddfba8310713a9c7c269cfa553637ca737e7d"
-  integrity sha512-gGVKJyfbkZEvWOZNMfKtmnnwAGEKu6Rg4c00MECb1hMRHFyoD5eZMkaVpOYLWXQau4EjbPdhQX/b/0icFVP8JA==
+"@graphcms/uix-react-sdk@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@graphcms/uix-react-sdk/-/uix-react-sdk-0.0.10.tgz#3a35aa3553c50914e3fcc537f41c2c9942773131"
+  integrity sha512-uIlhp7H+gdbt/ezfQAznlNtjuxcn/y0O54mM/dkwbSYkTSiLscu6y1qNZdUvHLx7EpYPAB7wiyGnDH6zZZIZxA==
   dependencies:
     "@graphcms/zoid" "^9.0.64-alpha.1"
 

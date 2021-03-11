@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-
+import "./_app.css";
 function MyApp({ Component, pageProps, router }: AppProps) {
   const {
     query: { extensionUid },
