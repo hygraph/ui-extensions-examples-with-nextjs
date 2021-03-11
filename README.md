@@ -122,7 +122,7 @@ export interface ExtensionType {
   form?: {
     change: <Value = any>(name: string, value: Value) => Promise<void>;
     getState: <Values = Record<string, any>>() => Promise<FormState<Values>>; // see https://final-form.org/docs/final-form/types/FormState
-    getFieldState: <Value = any>() => Promise<FieldState<Value>>; // see https://final-form.org/docs/final-form/types/FieldState
+    getFieldState: <Value = any>(fieldName: string) => Promise<FieldState<Value>>; // see https://final-form.org/docs/final-form/types/FieldState
 
   // details about the field you are currently extending
   field?: {
