@@ -112,7 +112,14 @@ export interface ExtensionType {
 
   // field state sync
   value: any;
-  onChange: (value: any) => void;
+  onChange: <T extends HTMLElement = HTMLElement>(event: ChangeEvent<T> | any) => Promise<void>;
+  onFocus: <T extends HTMLElement = HTMLElement>(event?: FocusEvent<T>) => Promise<void>;
+  onBlur: <T extends HTMLElement = HTMLElement>(event?: FocusEvent<T>) => Promise<void>;
+  meta?: {  // @see https://final-form.org/docs/react-final-form/types/FieldRenderProps
+    active: boolean;
+    error: any;
+    touched: boolean;
+  };
 
   // fullscreen mode
   isExpanded?: boolean;
