@@ -45,7 +45,7 @@ import type {
 
 const Extension = () => {
   // When displaying the extensions, GraphCMS will add a unique identifier 'extensionUid' to the url
-  const queryParams = new URLSearchParams(window.location.query);
+  const queryParams = new URLSearchParams(window.location.search);
   const uid = queryParams.get("extensionUid");
 
   // We need a quick declaration of what this extension is about
