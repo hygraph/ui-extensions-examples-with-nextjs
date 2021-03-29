@@ -1,6 +1,8 @@
 import * as React from "react";
-import { useUiExtension } from "@graphcms/uix-react-sdk";
-import dynamic from "next/dynamic";
+import {
+  Wrapper as ExtensionWrapper,
+  useUiExtension,
+} from "@graphcms/uix-react-sdk";
 
 import enTranslations from "@shopify/polaris/locales/en.json";
 import {
@@ -13,7 +15,21 @@ import {
   Badge,
 } from "@shopify/polaris";
 
-export default function ProductPicker() {
+export default function ShopifyPicker({ extensionUid }) {
+  console.log({ extensionUid });
+  if (typeof extensionUid !== "string") return <p> missing extension UID</p>;
+  return (
+    <ExtensionWrapper
+      uid={extensionUid}
+      // @ts-expect-error
+      declaration={{}}
+    >
+      <ProductPicker />
+    </ExtensionWrapper>
+  );
+}
+
+function ProductPicker() {
   const {
     extension: {
       config: { STORE, ACCESS_TOKEN },
