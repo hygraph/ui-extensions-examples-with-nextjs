@@ -84,6 +84,17 @@ function ShopifyProductInput() {
       "Shopify_Picker",
       windowFeatures
     );
+    let configInterval;
+    const sendConfig = async () => {
+      const postRobot = (await import("post-robot")).default;
+      postRobot
+        .send(pickerWindow, "config", { STORE, ACCESS_TOKEN })
+        .then(function (result) {
+          console.log({ result });
+          if (result) clearInterval(configInterval);
+        });
+    };
+    configInterval = setInterval(sendConfig, 200);
   }, []);
 
   return (

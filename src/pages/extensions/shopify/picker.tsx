@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  Wrapper as ExtensionWrapper,
-  useUiExtension,
-} from "@graphcms/uix-react-sdk";
-
+import "@shopify/polaris/dist/styles.css";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import {
   AppProvider,
@@ -16,29 +12,37 @@ import {
 } from "@shopify/polaris";
 
 export default function ShopifyPicker({ extensionUid }) {
-  console.log({ extensionUid });
-  if (typeof extensionUid !== "string") return <p> missing extension UID</p>;
+  const [config, setConfig] = React.useState({
+    STORE: null,
+    ACCESS_TOKEN: null,
+  });
+
+  React.useEffect(() => {
+    let listener;
+    const listenForItem = async function () {
+      const postRobot = (await import("post-robot")).default;
+      listener = postRobot.on("config", (event) => {
+        const { STORE, ACCESS_TOKEN } = event.data;
+        setTimeout(() => setConfig({ STORE, ACCESS_TOKEN }), 100);
+        return true;
+      });
+    };
+    listenForItem();
+    return () => {
+      listener.cancel();
+    };
+  }, []);
+
+  if (typeof config.STORE !== "string") return <p></p>;
   return (
-    <ExtensionWrapper
-      uid={extensionUid}
-      // @ts-expect-error
-      declaration={{}}
-    >
-      <ProductPicker />
-    </ExtensionWrapper>
+    <ProductPicker store={config.STORE} accessToken={config.ACCESS_TOKEN} />
   );
 }
 
-function ProductPicker() {
-  const {
-    extension: {
-      config: { STORE, ACCESS_TOKEN },
-    },
-  } = useUiExtension();
-
+function ProductPicker({ store, accessToken }) {
   const { data, loading, error } = useFetchProducts({
-    store: STORE,
-    accessToken: ACCESS_TOKEN,
+    store,
+    accessToken,
   });
   return (
     <AppProvider i18n={enTranslations}>

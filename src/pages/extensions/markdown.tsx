@@ -38,6 +38,8 @@ function MarkDownExtension() {
     expandField,
     extension: { status },
     form: { getFieldState, getState, change },
+    //@ts-expect-error
+    openAssetPicker,
   } = useUiExtension();
 
   return (
@@ -57,6 +59,11 @@ function MarkDownExtension() {
           }
         >
           Log form state
+        </button>
+        <button
+          onClick={() => openAssetPicker().then((a) => console.log({ a }))}
+        >
+          Asset
         </button>
       </div>
       <div
