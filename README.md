@@ -125,6 +125,9 @@ export interface ExtensionType {
   isExpanded?: boolean;
   expandField?: (expand: boolean) => unknown;
 
+  // open the asset picker (see the Asset type in your Content Api)
+  openAssetPicker: () => Promise<null | Asset>;
+
   // access to the form state and other form fields
   form?: {
     change: <Value = any>(name: string, value: Value) => Promise<void>;
